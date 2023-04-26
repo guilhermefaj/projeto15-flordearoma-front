@@ -7,6 +7,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'DM Sans', sans-serif;
 }
+a{
+    text-decoration: none;
+    outline: none;
+}
 `
 
 export default GlobalStyle

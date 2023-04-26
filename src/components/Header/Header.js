@@ -1,4 +1,4 @@
-import { Container, Alert, TitleContainer, Title, Icons } from "./styled";
+import { Container, Alert, TitleContainer, Title, Icons, Navigation, StyledLink } from "./styled";
 import { FiUser, FiSearch, FiShoppingCart } from "react-icons/fi";
 
 export default function Header() {
@@ -15,10 +15,30 @@ export default function Header() {
                     <FiShoppingCart />
                 </Icons>
             </TitleContainer>
-            <nav>
-
-            </nav>
+            <Navigation>
+                <ul>
+                    <li>
+                        <StyledLink to="/" className="perfumaria">
+                            PERFUMARIA
+                        </StyledLink>
+                    </li>
+                    <li>
+                        <StyledLink to="/" className="cabelos">
+                            CABELOS
+                        </StyledLink>
+                    </li>
+                    <li>
+                        <StyledLink to="/" className="corpo-e-banho">
+                            CORPO E BANHO
+                        </StyledLink>
+                    </li>
+                    <li>
+                        <StyledLink to="/" className="maquiagem">
+                            MAQUIAGEM
+                        </StyledLink>
+                    </li>
+                </ul>
+            </Navigation>
         </Container>
     )
 }
-
