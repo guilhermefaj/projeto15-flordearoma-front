@@ -54,7 +54,7 @@ export const Navigation = styled.nav`
         display: flex;
         gap: 60px;
         position: absolute;
-        bottom: 10px;
+        bottom: 20px;
     }
     li{
         display: flex;
