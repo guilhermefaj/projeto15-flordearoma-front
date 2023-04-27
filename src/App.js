@@ -15,7 +15,7 @@ function App() {
         <Routes>
           < Route path="/sign-in" element={<SignInPage />} />
           < Route path="/sign-up" element={<SignUpPage />} />
-          < Route path="/:categories/:id" element={<ItemPage />} />
+          < Route path="/:categories/:itemId" element={<ItemPage />} />
         </Routes>
         <Footer />
       </Main>
