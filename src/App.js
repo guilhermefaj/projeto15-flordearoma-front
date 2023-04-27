@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import styled from "styled-components";
 import ItemPage from "./pages/ItemPage";
+import CartPage from "./pages/CartPage";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           < Route path="/sign-in" element={<SignInPage />} />
           < Route path="/sign-up" element={<SignUpPage />} />
           < Route path="/:categories/:itemId" element={<ItemPage />} />
+          < Route path="/cart" element={<CartPage />} />
         </Routes>
         <Footer />
       </Main>
