@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     position: fixed;
+    top:0px;
+    left: 0px;
     z-index: 10;
     margin-bottom: 160px;
     width: 100%;
