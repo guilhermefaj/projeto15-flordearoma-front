@@ -36,7 +36,7 @@ export default function SignInPage() {
         request.catch(err => {
             alert(err.response.data);
             setDisabled(false);
-            setTextButton("Entrar");
+            setTextButton("LOGIN");
             setLoading(false);
         }
         );
@@ -66,7 +66,7 @@ export default function SignInPage() {
                 </button>
             </FormLogin>
             <Link to="/sign-up" >
-                Não tem uma conta? Cadastre-se!
+                Não tem uma conta? <span>Cadastre-se!</span>
             </Link>
         </ContainerLogin>
     )
@@ -89,6 +89,10 @@ const ContainerLogin = styled.div`
         font-weight:400;
         line-height:23px;
         align-self: center
+    }
+    span{
+        font-weight: 700;
+        color:#1F2622;
     }
 `
 
