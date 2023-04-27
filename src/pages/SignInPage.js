@@ -78,10 +78,10 @@ const ContainerLogin = styled.div`
     justify-content: flex-start;
     align-items: center;
     background-color: #f3f6f4;
-    margin-top:160px;
     margin-right: auto;
     margin-left: auto;
-    height: 100vh;
+    padding-bottom: 80px;
+    height: fit-content;
     a{
         color:#6A6A6A;
         font-family: "DM Sans", sans-serif;

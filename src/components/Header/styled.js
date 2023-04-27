@@ -25,19 +25,19 @@ export const Alert = styled.div`
     background-color: #4F8164;
     font-family: 'DM Sans', sans-serif;
     color: white;
+    transition: opacity 0.5s ease-in-out;
 `
 
 export const TitleContainer = styled.nav`
     text-align: center;
     width: 100%;
     margin-top: 17px;
-    font-size: 40px;
-    font-family: "Cinzel Decorative", cursive;
     position: relative;
 `
 
 export const Title = styled.div`
-
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 40px;
 `
 
 export const Icons = styled.div`
