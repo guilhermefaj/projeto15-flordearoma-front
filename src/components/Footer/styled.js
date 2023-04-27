@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    z-index: 10;
+    z-index: 1;
+    position: absolute;
     width: 100%;
     background-color: #4F8164;
-    bottom:0;
     overflow-x: hidden;
 `
 
