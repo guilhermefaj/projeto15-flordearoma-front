@@ -8,7 +8,7 @@ export default function Header() {
                 FRETE GRÁTIS A PARTIR DE R$199,00
             </Alert>
             <TitleContainer>
-                <Title>Flor de aroma</Title>
+                <Title>FlOr dE ArOma</Title>
                 <Icons>
                     <FiUser />
                     <FiSearch />
