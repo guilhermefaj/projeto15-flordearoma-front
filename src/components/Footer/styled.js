@@ -3,10 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     z-index: 10;
     width: 100%;
-    margin-top: 300px;
-    position: fixed;
     background-color: #4F8164;
     bottom:0;
+    overflow-x: hidden;
 `
 
 export const TopFooter = styled.div`
@@ -17,17 +16,24 @@ export const TopFooter = styled.div`
     color: white;
     font-family: "Cinzel Decorative", cursive;
     font-size: 40px;
+    cursor: default;
+    transition: transform 1.5s ease-in-out;
+    &:hover{
+        transform: scale(1.6);
+    }
 `
 
 export const InfoFooter = styled.div`
     padding-left: 30px;
     padding-right: 30px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: space-around;
     padding-top: 30px;
     gap: 160px;
     background-color: white;
-    height: 300px;
+    min-height: 300px;
+    max-height: fit-content;
 `
 
 export const FormContainer = styled.div`
