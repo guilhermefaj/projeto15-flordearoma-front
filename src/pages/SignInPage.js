@@ -97,7 +97,7 @@ const ContainerLogin = styled.div`
 `
 
 const Title = styled.div`
-    margin-top:calc(40vh - 160px);
+    margin-top:260px;
     text-align: center;
     margin-bottom: 28px;
     color:#1F2622;

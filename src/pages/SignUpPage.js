@@ -31,7 +31,7 @@ export default function SignUpPage() {
 
         const request = api.post("/sign-up", obj);
 
-        request.then(() => navigate("/"));
+        request.then(() => navigate("/sign-in"));
 
         request.catch(err => {
             alert(err.response.data);
@@ -100,7 +100,7 @@ const ContainerRegister = styled.div`
 `
 
 const Title = styled.div`
-    margin-top:calc(40vh - 200px);
+    margin-top:200px;
     text-align: center;
     margin-bottom: 28px;
     color:#1F2622;
