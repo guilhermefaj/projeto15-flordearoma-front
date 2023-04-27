@@ -74,6 +74,7 @@ export default function SignInPage() {
 
 const ContainerLogin = styled.div`
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -81,7 +82,6 @@ const ContainerLogin = styled.div`
     margin-right: auto;
     margin-left: auto;
     padding-bottom: 80px;
-    height: fit-content;
     a{
         color:#6A6A6A;
         font-family: "DM Sans", sans-serif;
@@ -97,7 +97,7 @@ const ContainerLogin = styled.div`
 `
 
 const Title = styled.div`
-    margin-top:260px;
+    margin-top: 60px;
     text-align: center;
     margin-bottom: 28px;
     color:#1F2622;

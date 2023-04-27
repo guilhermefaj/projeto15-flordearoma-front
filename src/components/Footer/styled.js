@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    z-index: 10;
+    z-index: 1;
+    position: absolute;
     width: 100%;
     background-color: #4F8164;
-    bottom:0;
     overflow-x: hidden;
 `
 
@@ -28,7 +28,7 @@ export const InfoFooter = styled.div`
     padding-right: 30px;
     padding-bottom: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding-top: 30px;
     gap: 160px;
     background-color: white;
@@ -72,7 +72,14 @@ export const FormContainer = styled.div`
         border-radius: 3px;
         margin-bottom: 25px;
         cursor:pointer;
-        opacity: ${({ disabled }) => disabled === true ? "70%" : "100%"}
+        opacity: ${({ disabled }) => disabled === true ? "70%" : "100%"};
+        background-image: linear-gradient(to right, #4F8165, green);
+        background-size: 200% auto; 
+        transition: background-position 0.5s ease; 
+        &:hover{
+            background-position: -100% center;
+            background-color: white;
+        }
     }
     }
 `

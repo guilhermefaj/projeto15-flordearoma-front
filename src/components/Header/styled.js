@@ -2,14 +2,11 @@ import styled from "styled-components"
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-    position: fixed;
-    top:0px;
-    left: 0px;
-    z-index: 10;
-    margin-bottom: 160px;
+    position: sticky;
+    z-index: 1;
     width: 100%;
     height: 160px;
-    background-color: white;
+    background-color: white; 
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -57,7 +54,7 @@ export const Navigation = styled.nav`
         display: flex;
         gap: 60px;
         position: absolute;
-        bottom: 10px;
+        bottom: 20px;
     }
     li{
         display: flex;

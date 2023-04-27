@@ -82,7 +82,6 @@ const ContainerRegister = styled.div`
     background-color: #f3f6f4;
     margin-right: auto;
     margin-left: auto;
-    padding-top: 40px;
     padding-bottom: 80px;
     height: fit-content;
     a{
@@ -100,7 +99,7 @@ const ContainerRegister = styled.div`
 `
 
 const Title = styled.div`
-    margin-top:200px;
+    margin-top:60px;
     text-align: center;
     margin-bottom: 28px;
     color:#1F2622;
