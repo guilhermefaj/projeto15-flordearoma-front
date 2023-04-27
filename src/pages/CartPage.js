@@ -2,15 +2,28 @@ import { useNavigate } from "react-router-dom";
 import { cartProductsMock } from "../cartProductsMock";
 import styled from "styled-components";
 import { useState } from "react";
+import Recomendations from "../components/Recomendations";
 
 export default function CartPage() {
     const [cartProducts, setCartProducts] = useState(cartProductsMock);
     const navigate = useNavigate();
-    let number = 1;
     const [total, setTotal] = useState(0);
+    const [count, setCount] = useState(1);
+
+    function incrementCount() {
+        setCount(count + 1);
+    }
+
+    function decrementCount() {
+        setCount(count - 1)
+    }
 
     function navigateToHome() {
         navigate("/");
+    }
+
+    function checkout() {
+        navigate("/checkout");
     }
     return (
         <CartContainer>
@@ -25,7 +38,7 @@ export default function CartPage() {
                 <h1>
                     CARRINHO
                 </h1><br />
-                <h2>Adicione mais R$30,00 e ganhe frete grátis!</h2>
+                <h2>Adicione mais R$30,00 em produtos e ganhe frete grátis!</h2>
                 <CartProductsContainer>
                     <Titles>
                         <div className="product"><h4>PRODUTO</h4></div>
@@ -36,44 +49,89 @@ export default function CartPage() {
                             <ProductContainer>
                                 <Product>
                                     <img src={product.URL} alt={product.name} />
-                                    <div>
+                                    <div className="productInfo">
                                         <h3>{product.name.toUpperCase()}</h3>
                                         <h4>{`R$ ${product.value}`}</h4>
                                     </div>
                                 </Product>
                                 <Quantity>
-                                    <div>
-                                        CONTADOR
-                                        {number}
-                                    </div>
-
-                                    <button>REMOVE</button>
+                                    <Counter>
+                                        <button onClick={decrementCount}>-</button>
+                                        <div className="count">{count}</div>
+                                        <button onClick={incrementCount}>+</button>
+                                    </Counter>
+                                    <button className="removeButton">Remover do carrinho</button>
                                 </Quantity>
                                 <ProductTotal>
-                                    <h4>{`R$ ${Number(product.value) * number}`}</h4>
+                                    <h4>{`R$ ${Number(product.value) * count}`}</h4>
                                 </ProductTotal>
                             </ProductContainer>
                         )
                     })}
                     <Total>
                         <h3>{`TOTAL: R$ ${total}`}</h3>
+                        <CheckoutButton onClick={checkout}>FINALIZAR COMPRA</CheckoutButton>
+                        <CheckoutButton onClick={navigateToHome}>CONTINUAR COMPRANDO</CheckoutButton>
                     </Total>
                 </CartProductsContainer>
             </Cart>
+            <Recomendations />
         </CartContainer>
     )
 }
 
+const CheckoutButton = styled.button`
+    width: 245px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 35px;
+    background-color: #4F8165;
+    color: #FFFFFF;
+    font-family: "DM Sans", sans-serif;
+    font-size:12px;
+    font-weight:500;
+    line-height:15px;
+    letter-spacing: 2.4px;
+    border: none;
+    margin-top: 25px;
+    cursor:pointer;
+    opacity: ${({ disabled }) => disabled === true ? "70%" : "100%"};
+    background-image: linear-gradient(to right, #4F8165, green);
+    background-size: 200% auto; 
+    transition: background-position 0.5s ease; 
+    &:hover{
+        background-position: -100% center;
+        background-color: white;
+    }
+`
+
+const Counter = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #D3D7D5;
+    width: 100px;
+    margin-bottom: 5px;
+    button{
+        border: none;
+        background-color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+`
+
 const Total = styled.div`
-border-top: 1px solid #6A6A6A;
+border-top: 1px solid #DADDDB;
 display: flex;
-justify-content: flex-end;
+flex-direction: column;
+align-items: flex-end;
 `
 const Product = styled.div`
 display:flex;
 align-items: center;
 width:60%;
-div{
+.productInfo{
     padding-left: 25px;
     display:flex;
     flex-direction: column;
@@ -92,14 +150,16 @@ width:20%;
 display:flex;
 flex-direction: column;
 align-items: flex-start;
-div{
-    width:98px;
-    height: 40px;
-}
-button{
-    width:55px;
+.removeButton{
+    width:50%;
     height: 15px;
-    border: none;
+    border:none;
+    background-color: #ffffff;
+    cursor:pointer;
+    font-size:9px;
+    text-decoration: underline;
+    letter-spacing: 0.5px;
+    color:#6A6A6A;
 }
 `
 const ProductTotal = styled.div`
@@ -116,7 +176,7 @@ width:100%;
 `
 
 const Titles = styled.div`
-border-bottom: 1px solid #6A6A6A;
+border-bottom: 1px solid #DADDDB;
 display: flex;
 .product{
     width: 60%;
@@ -128,7 +188,7 @@ display: flex;
 }
 `
 const Cart = styled.div`
-    margin-top:260px; 
+    margin-top:60px; 
     display: ${({ cartProducts }) => cartProducts.length !== 0 ? "flex" : "none"};
     flex-direction: column;
     justify-content: flex-start;
@@ -185,11 +245,10 @@ const CartContainer = styled.div`
         letter-spacing: 2.2px;
         margin-bottom: 10px;
     }
-
 `
 
 const EmptyCart = styled.div`
-    margin-top:260px;  
+    margin-top:60px;  
     display: ${({ cartProducts }) => cartProducts.length === 0 ? "flex" : "none"};
     flex-direction: column;
     justify-content: flex-start;

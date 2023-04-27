@@ -18,6 +18,7 @@ function App() {
           < Route path="/sign-up" element={<SignUpPage />} />
           < Route path="/:categories/:id" element={<ItemPage />} />
           < Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" />
         </Routes>
         <Footer />
       </Main>
