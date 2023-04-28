@@ -20,11 +20,8 @@ function App() {
           < Route path="/sign-up" element={<SignUpPage />} />
           < Route path="/:categories/:itemId" element={<ItemPage />} />
           < Route path="/cart" element={<CartPage />} />
-          <Route path="/perfumaria" element={<CategoryPage category={"Perfumaria"}/>}/>
-          <Route path="/make" element={<CategoryPage category={"make"}/>}/>
-          <Route path="/cabelos" element={<CategoryPage category={"cabelos"}/>}/>
-          <Route path="/body" element={<CategoryPage category={"body"}/>}/>
-          <Route path="/checkout"/>
+          < Route path="/:categories" element={<CategoryPage />} />
+      
 
         </Routes>
         <Footer />
