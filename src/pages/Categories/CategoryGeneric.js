@@ -2,10 +2,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import api from "../../axios";
+import { useParams } from "react-router-dom";
 
 const REACT_APP_API_URL="http://localhost:5000"
 
-export default function CategoryPage({ category }) {
+export default function CategoryPage() {
+  const { categories } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function CategoryPage({ category }) {
       try {
         const response = await api.get(`${REACT_APP_API_URL}/products`);
         const categoryProducts = response.data.filter(
-          product => product.category === category
+          product => product.category === categories
         );
         setProducts(categoryProducts);
       } catch (err) {
@@ -21,7 +23,7 @@ export default function CategoryPage({ category }) {
       }
     };
     fetchProducts();
-  }, [category]);
+  }, [categories]);
 
   return (
     <Container>
