@@ -5,5 +5,10 @@ function showItem(itemId) {
     return promise
 }
 
-const apiItems = { showItem }
+function showRecommendations(categories) {
+    const promise = axios.get(`${process.env.REACT_APP_API_URL}/${categories}`)
+    return promise
+}
+
+const apiItems = { showItem, showRecommendations }
 export default apiItems

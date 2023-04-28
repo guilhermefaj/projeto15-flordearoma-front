@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 export default function ItemPage() {
     const [count, setCount] = useState(1);
     const [product, setProduct] = useState()
+    const [recommendations, setRecommendations] = useState()
+    const { categories } = useParams()
     const { itemId } = useParams()
 
     function incrementCount() { setCount(count + 1) }
@@ -18,9 +20,22 @@ export default function ItemPage() {
                 setProduct(apiProduct)
             })
             .catch(err => {
-                alert(err.response.data)
+                alert(err.response.message)
             })
     }, [itemId])
+
+    useEffect(() => {
+        apiItems.showRecommendations(categories)
+            .then(res => {
+                const apiRecommendations = res.data
+                setRecommendations(apiRecommendations)
+            })
+            .catch(err => {
+                alert(err.response.message)
+            })
+    }, [categories])
+
+    console.log("recommendations: ", recommendations)
 
     return (
         <Container>
@@ -38,7 +53,7 @@ export default function ItemPage() {
                         <CartAdd>Adicionar ao carrinho</CartAdd>
                         <Description>
                             {product.description.map(item => {
-                                <p>item</p>
+                                return <p>{item}</p>
                             }
                             )}
                         </Description>
@@ -48,59 +63,24 @@ export default function ItemPage() {
                 <p>carregando...</p>
             )
             }
-            <RecomendationsContainer>
-                <RecomandationTitle>
+            <RecommendationsContainer>
+                <RecommendationTitle>
                     VOCÊ TAMBÉM PODE GOSTAR
-                </RecomandationTitle>
-                <Recomendation>
-                    <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Carpe-Diem-3_600x.jpg?v=1673610532" />
-                    <RecomendationName>
+                </RecommendationTitle>
+                <Recommendation>
+                    <img src="https://images-americanas.b2w.io/produtos/5078563313/imagens/perfume-masculino-deo-parfum-100ml-natura-homem-sagaz/5078563313_1_xlarge.jpg" />
+                    <RecommendationName>
                         NOME DO PRODUTO
-                    </RecomendationName>
-                    <RecomendationPrice>
+                    </RecommendationName>
+                    <RecommendationPrice>
                         R$199,90
-                    </RecomendationPrice>
-                    <RecomendationAdd>
+                    </RecommendationPrice>
+                    <RecommendationAdd>
                         ADD TO CART
-                    </RecomendationAdd>
-                </Recomendation>
-                <Recomendation>
-                    <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Carpe-Diem-3_600x.jpg?v=1673610532" />
-                    <RecomendationName>
-                        NOME DO PRODUTO
-                    </RecomendationName>
-                    <RecomendationPrice>
-                        R$199,90
-                    </RecomendationPrice>
-                    <RecomendationAdd>
-                        ADD TO CART
-                    </RecomendationAdd>
-                </Recomendation>
-                <Recomendation>
-                    <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Carpe-Diem-3_600x.jpg?v=1673610532" />
-                    <RecomendationName>
-                        NOME DO PRODUTO
-                    </RecomendationName>
-                    <RecomendationPrice>
-                        R$199,90
-                    </RecomendationPrice>
-                    <RecomendationAdd>
-                        ADD TO CART
-                    </RecomendationAdd>
-                </Recomendation>
-                <Recomendation>
-                    <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Carpe-Diem-3_600x.jpg?v=1673610532" />
-                    <RecomendationName>
-                        NOME DO PRODUTO
-                    </RecomendationName>
-                    <RecomendationPrice>
-                        R$199,90
-                    </RecomendationPrice>
-                    <RecomendationAdd>
-                        ADD TO CART
-                    </RecomendationAdd>
-                </Recomendation>
-            </RecomendationsContainer>
+                    </RecommendationAdd>
+                </Recommendation>
+
+            </RecommendationsContainer>
         </Container>
     )
 }
@@ -181,7 +161,7 @@ const Description = styled.div`
     }
     `
 
-const RecomendationsContainer = styled.div`
+const RecommendationsContainer = styled.div`
     background-color: #F3F6F4;
     margin-top: 100px;
     display: flex;
@@ -194,7 +174,7 @@ const RecomendationsContainer = styled.div`
     position: relative;
 `
 
-const RecomandationTitle = styled.div`
+const RecommendationTitle = styled.div`
     position: absolute;
     top: 40px;
     color: #1F2622;
@@ -203,7 +183,7 @@ const RecomandationTitle = styled.div`
     line-height: 30px;
 `
 
-const Recomendation = styled.div`
+const Recommendation = styled.div`
     display: flex;  
     flex-direction: column;  
     align-items: center;
@@ -212,14 +192,14 @@ const Recomendation = styled.div`
     }
 `
 
-const RecomendationName = styled.div`
+const RecommendationName = styled.div`
     margin-top: 20px;
     font-weight: 500;
     font-size: 12px;
     line-height: 20px;
 `
 
-const RecomendationPrice = styled.div`
+const RecommendationPrice = styled.div`
     margin-top: 5px;
     color: #1F2622;
     font-weight: 500;
@@ -227,7 +207,7 @@ const RecomendationPrice = styled.div`
     line-height: 20px;
 `
 
-const RecomendationAdd = styled.button`
+const RecommendationAdd = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     margin-top: 30px;
