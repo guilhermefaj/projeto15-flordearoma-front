@@ -1,39 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
+import apiItems from "../services/apiItems";
+import { useParams } from "react-router-dom";
 
 export default function ItemPage() {
-
     const [count, setCount] = useState(1);
+    const [product, setProduct] = useState()
+    const { itemId } = useParams()
 
-    function incrementCount() {
-        setCount(count + 1);
-    }
+    function incrementCount() { setCount(count + 1) }
+    function decrementCount() { setCount(count - 1) }
 
-    function decrementCount() {
-        setCount(count - 1)
-    }
+    useEffect(() => {
+        apiItems.showItem(itemId)
+            .then(res => {
+                const apiProduct = res.data
+                setProduct(apiProduct)
+            })
+            .catch(err => {
+                alert(err.response.data)
+            })
+    }, [itemId])
 
     return (
         <Container>
-            <ItemContainer>
-                <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Innamorata-2_600x.jpg?v=1673610494"></img>
-                <ItemDescription>
-                    <h2>PERFUME EAU DE TOILLET</h2>
-                    <Price>R$ 299,90</Price>
-                    <Quantity>
-                        <button onClick={decrementCount}>-</button>
-                        <div>{count}</div>
-                        <button onClick={incrementCount}>+</button>
-                    </Quantity>
-                    <CartAdd>Adicionar ao carrinho</CartAdd>
-                    <Description>
-                        <p>
-                            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae ligula vestibulum, gravida tortor ac, laoreet ligula. Pellentesque aliquam sapien quis porta faucibus. Vestibulum nibh turpis, aliquet id luctus vel, imperdiet vel justo. Praesent vitae ultrices dui. Aenean in leo nisi. Fusce nec tellus a neque posuere rhoncus vitae et leo. Pellentesque semper, purus vitae sollicitudin molestie, tortor ex tempor lacus, sit amet consectetur nunc mi non mauris. Nunc commodo nibh vitae blandit pretium. Nulla ac sem eleifend, aliquam neque non, laoreet leo. Vivamus vulputate scelerisque turpis. Curabitur ac urna sed enim bibendum pharetra non quis orci. Donec commodo vehicula elit non pulvinar.    
-                            Nam congue fringilla bibendum. Duis tincidunt aliquam quam, non mollis lorem aliquet ac. Proin euismod nunc quis tortor scelerisque, ac luctus tortor egestas. Maecenas nisi lacus, sollicitudin quis luctus sit amet, cursus a risus. Aenean non euismod orci, eget fermentum quam. Integer dapibus turpis dui, a luctus erat pharetra a. In egestas lectus vitae est dignissim consequat. Sed ut magna augue. Vivamus vel lorem non diam interdum varius. Nulla suscipit, velit at volutpat eleifend, lorem nulla molestie justo, ac accumsan mauris nulla in ex. Proin nec pretium libero.`}
-                        </p>
-                    </Description>
-                </ItemDescription>
-            </ItemContainer>
+            {product ? (
+                <ItemContainer>
+                    <img src={product.URL}></img>
+                    <ItemDescription>
+                        <h2>{product.name.toUpperCase()}</h2>
+                        <Price>R$ {product.value}</Price>
+                        <Quantity>
+                            <button onClick={decrementCount} disabled={count === 1}>-</button>
+                            <div>{count}</div>
+                            <button onClick={incrementCount} disabled={count === product.stock}>+</button>
+                        </Quantity>
+                        <CartAdd>Adicionar ao carrinho</CartAdd>
+                        <Description>
+                            {product.description.map(item => {
+                                <p>item</p>
+                            }
+                            )}
+                        </Description>
+                    </ItemDescription>
+                </ItemContainer>
+            ) : (
+                <p>carregando...</p>
+            )
+            }
             <RecomendationsContainer>
                 <RecomandationTitle>
                     VOCÊ TAMBÉM PODE GOSTAR
