@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components"
 import apiItems from "../services/apiItems";
 import { useParams } from "react-router-dom";
-import Recomendations from "../components/Recomendations";
+import Recommendations from "../components/Recommendations/Recommendations";
 
 export default function ItemPage() {
     const [count, setCount] = useState(1);
@@ -25,6 +25,7 @@ export default function ItemPage() {
             })
     }, [itemId])
 
+
     useEffect(() => {
         apiItems.showRecommendations(categories)
             .then(res => {
@@ -35,8 +36,6 @@ export default function ItemPage() {
                 alert(err.response.message)
             })
     }, [categories])
-
-    console.log("recommendations: ", recommendations)
 
     return (
         <Container>
@@ -69,21 +68,19 @@ export default function ItemPage() {
                 <RecommendationTitle>
                     VOCÊ TAMBÉM PODE GOSTAR
                 </RecommendationTitle>
-                <Recommendation>
-                    <img src="https://images-americanas.b2w.io/produtos/5078563313/imagens/perfume-masculino-deo-parfum-100ml-natura-homem-sagaz/5078563313_1_xlarge.jpg" />
-                    <RecommendationName>
-                        NOME DO PRODUTO
-                    </RecommendationName>
-                    <RecommendationPrice>
-                        R$199,90
-                    </RecommendationPrice>
-                    <RecommendationAdd>
-                        ADD TO CART
-                    </RecommendationAdd>
-                </Recommendation>
+                {recommendations ? (
+                    recommendations.map(item => {
+                        return (
+                            <Recommendations
+                                URL={item.URL}
+                                name={item.name}
+                                value={item.value}
+                            />
+                        )
+                    })
+                ) : (<div>carregando</div>)}
 
             </RecommendationsContainer>
-
         </Container>
     )
 }
@@ -184,53 +181,4 @@ const RecommendationTitle = styled.div`
     font-weight: 500;
     font-size: 18px;
     line-height: 30px;
-`
-
-const Recommendation = styled.div`
-    display: flex;  
-    flex-direction: column;  
-    align-items: center;
-    img{
-       max-width: 250px; 
-    }
-`
-
-const RecommendationName = styled.div`
-    margin-top: 20px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
-`
-
-const RecommendationPrice = styled.div`
-    margin-top: 5px;
-    color: #1F2622;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
-`
-
-const RecommendationAdd = styled.button`
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 30px;
-    height: 35px;
-    background-color: #4F8165;
-    color: #FFFFFF;
-    font-family: "DM Sans", sans-serif;
-    font-size:12px;
-    font-weight:500;
-    line-height:15px;
-    letter-spacing: 2.4px;
-    border: none;
-    margin-bottom: 25px;
-    cursor:pointer;
-    opacity: ${({ disabled }) => disabled === true ? "70%" : "100%"};
-    background-image: linear-gradient(to right, #4F8165, green);
-    background-size: 200% auto; 
-    transition: background-position 0.5s ease; 
-    &:hover{
-        background-position: -100% center;
-        background-color: white;
-    }
 `
