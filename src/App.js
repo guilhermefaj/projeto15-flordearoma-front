@@ -18,15 +18,14 @@ function App() {
         <Routes>
           < Route path="/sign-in" element={<SignInPage />} />
           < Route path="/sign-up" element={<SignUpPage />} />
-          < Route path="/:categories/:id" element={<ItemPage />} />
+          < Route path="/:categories/:itemId" element={<ItemPage />} />
           < Route path="/cart" element={<CartPage />} />
           <Route path="/perfumaria" element={<CategoryPage category={"Perfumaria"}/>}/>
           <Route path="/make" element={<CategoryPage category={"make"}/>}/>
           <Route path="/cabelos" element={<CategoryPage category={"cabelos"}/>}/>
           <Route path="/body" element={<CategoryPage category={"body"}/>}/>
+          <Route path="/checkout"/>
 
-        
-        
         </Routes>
         <Footer />
       </Main>
