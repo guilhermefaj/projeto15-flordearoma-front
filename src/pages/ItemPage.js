@@ -1,41 +1,89 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
+import apiItems from "../services/apiItems";
+import { useParams } from "react-router-dom";
 import Recomendations from "../components/Recomendations";
 
 export default function ItemPage() {
-
     const [count, setCount] = useState(1);
+    const [product, setProduct] = useState()
+    const [recommendations, setRecommendations] = useState()
+    const { categories } = useParams()
+    const { itemId } = useParams()
 
-    function incrementCount() {
-        setCount(count + 1);
-    }
+    function incrementCount() { setCount(count + 1) }
+    function decrementCount() { setCount(count - 1) }
 
-    function decrementCount() {
-        setCount(count - 1)
-    }
+    useEffect(() => {
+        apiItems.showItem(itemId)
+            .then(res => {
+                const apiProduct = res.data
+                setProduct(apiProduct)
+            })
+            .catch(err => {
+                alert(err.response.message)
+            })
+    }, [itemId])
+
+    useEffect(() => {
+        apiItems.showRecommendations(categories)
+            .then(res => {
+                const apiRecommendations = res.data
+                setRecommendations(apiRecommendations)
+            })
+            .catch(err => {
+                alert(err.response.message)
+            })
+    }, [categories])
+
+    console.log("recommendations: ", recommendations)
 
     return (
         <Container>
-            <ItemContainer>
-                <img src="https://cdn.shopify.com/s/files/1/0587/6075/7446/products/BT-US_Boticollection-Innamorata-2_600x.jpg?v=1673610494"></img>
-                <ItemDescription>
-                    <h2>PERFUME EAU DE TOILLET</h2>
-                    <Price>R$ 299,90</Price>
-                    <Quantity>
-                        <button onClick={decrementCount}>-</button>
-                        <div>{count}</div>
-                        <button onClick={incrementCount}>+</button>
-                    </Quantity>
-                    <CartAdd>Adicionar ao carrinho</CartAdd>
-                    <Description>
-                        <p>
-                            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae ligula vestibulum, gravida tortor ac, laoreet ligula. Pellentesque aliquam sapien quis porta faucibus. Vestibulum nibh turpis, aliquet id luctus vel, imperdiet vel justo. Praesent vitae ultrices dui. Aenean in leo nisi. Fusce nec tellus a neque posuere rhoncus vitae et leo. Pellentesque semper, purus vitae sollicitudin molestie, tortor ex tempor lacus, sit amet consectetur nunc mi non mauris. Nunc commodo nibh vitae blandit pretium. Nulla ac sem eleifend, aliquam neque non, laoreet leo. Vivamus vulputate scelerisque turpis. Curabitur ac urna sed enim bibendum pharetra non quis orci. Donec commodo vehicula elit non pulvinar.    
-                            Nam congue fringilla bibendum. Duis tincidunt aliquam quam, non mollis lorem aliquet ac. Proin euismod nunc quis tortor scelerisque, ac luctus tortor egestas. Maecenas nisi lacus, sollicitudin quis luctus sit amet, cursus a risus. Aenean non euismod orci, eget fermentum quam. Integer dapibus turpis dui, a luctus erat pharetra a. In egestas lectus vitae est dignissim consequat. Sed ut magna augue. Vivamus vel lorem non diam interdum varius. Nulla suscipit, velit at volutpat eleifend, lorem nulla molestie justo, ac accumsan mauris nulla in ex. Proin nec pretium libero.`}
-                        </p>
-                    </Description>
-                </ItemDescription>
-            </ItemContainer>
-            <Recomendations />
+
+            {product ? (
+                <ItemContainer>
+                    <img src={product.URL}></img>
+                    <ItemDescription>
+                        <h2>{product.name.toUpperCase()}</h2>
+                        <Price>R$ {product.value}</Price>
+                        <Quantity>
+                            <button onClick={decrementCount} disabled={count === 1}>-</button>
+                            <div>{count}</div>
+                            <button onClick={incrementCount} disabled={count === product.stock}>+</button>
+                        </Quantity>
+                        <CartAdd>Adicionar ao carrinho</CartAdd>
+                        <Description>
+                            {product.description.map(item => {
+                                return <p>{item}</p>
+                            }
+                            )}
+                        </Description>
+                    </ItemDescription>
+                </ItemContainer>
+            ) : (
+                <p>carregando...</p>
+            )
+            }
+            <RecommendationsContainer>
+                <RecommendationTitle>
+                    VOCÊ TAMBÉM PODE GOSTAR
+                </RecommendationTitle>
+                <Recommendation>
+                    <img src="https://images-americanas.b2w.io/produtos/5078563313/imagens/perfume-masculino-deo-parfum-100ml-natura-homem-sagaz/5078563313_1_xlarge.jpg" />
+                    <RecommendationName>
+                        NOME DO PRODUTO
+                    </RecommendationName>
+                    <RecommendationPrice>
+                        R$199,90
+                    </RecommendationPrice>
+                    <RecommendationAdd>
+                        ADD TO CART
+                    </RecommendationAdd>
+                </Recommendation>
+
+            </RecommendationsContainer>
+
         </Container>
     )
 }
@@ -116,3 +164,73 @@ const Description = styled.div`
     }
     `
 
+const RecommendationsContainer = styled.div`
+    background-color: #F3F6F4;
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    padding: 60px;
+    padding-top: 100px;
+    gap: 50px;
+    position: relative;
+`
+
+const RecommendationTitle = styled.div`
+    position: absolute;
+    top: 40px;
+    color: #1F2622;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+`
+
+const Recommendation = styled.div`
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;
+    img{
+       max-width: 250px; 
+    }
+`
+
+const RecommendationName = styled.div`
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+`
+
+const RecommendationPrice = styled.div`
+    margin-top: 5px;
+    color: #1F2622;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+`
+
+const RecommendationAdd = styled.button`
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 30px;
+    height: 35px;
+    background-color: #4F8165;
+    color: #FFFFFF;
+    font-family: "DM Sans", sans-serif;
+    font-size:12px;
+    font-weight:500;
+    line-height:15px;
+    letter-spacing: 2.4px;
+    border: none;
+    margin-bottom: 25px;
+    cursor:pointer;
+    opacity: ${({ disabled }) => disabled === true ? "70%" : "100%"};
+    background-image: linear-gradient(to right, #4F8165, green);
+    background-size: 200% auto; 
+    transition: background-position 0.5s ease; 
+    &:hover{
+        background-position: -100% center;
+        background-color: white;
+    }
+`
