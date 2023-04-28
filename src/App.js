@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import SignInPage from "./pages/SignInPage";
@@ -8,6 +8,7 @@ import ItemPage from "./pages/ItemPage";
 import CartPage from "./pages/CartPage";
 
 import CategoryPage from "./pages/Categories/CategoryGeneric";
+import CheckoutPage from "./pages/CheckoutPage";
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
           < Route path="/:categories/:itemId" element={<ItemPage />} />
           < Route path="/cart" element={<CartPage />} />
           < Route path="/:categories" element={<CategoryPage />} />
-      
+          < Route path="/checkout" element={<CheckoutPage />} />
+
 
         </Routes>
         <Footer />
