@@ -18,22 +18,22 @@ export default function Header() {
             <Navigation>
                 <ul>
                     <li>
-                        <StyledLink to="/" className="perfumaria">
+                        <StyledLink to="/perfumaria" className="perfumaria">
                             PERFUMARIA
                         </StyledLink>
                     </li>
                     <li>
-                        <StyledLink to="/" className="cabelos">
+                        <StyledLink to="/cabelos" className="cabelos">
                             CABELOS
                         </StyledLink>
                     </li>
                     <li>
-                        <StyledLink to="/" className="corpo-e-banho">
+                        <StyledLink to="/body" className="corpo-e-banho">
                             CORPO E BANHO
                         </StyledLink>
                     </li>
                     <li>
-                        <StyledLink to="/" className="maquiagem">
+                        <StyledLink to="/make" className="maquiagem">
                             MAQUIAGEM
                         </StyledLink>
                     </li>
