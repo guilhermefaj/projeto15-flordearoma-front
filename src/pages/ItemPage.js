@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components"
 import apiItems from "../services/apiItems";
 import { useParams } from "react-router-dom";
+import Recomendations from "../components/Recomendations";
 
 export default function ItemPage() {
     const [count, setCount] = useState(1);
@@ -39,6 +40,7 @@ export default function ItemPage() {
 
     return (
         <Container>
+
             {product ? (
                 <ItemContainer>
                     <img src={product.URL}></img>
@@ -81,6 +83,7 @@ export default function ItemPage() {
                 </Recommendation>
 
             </RecommendationsContainer>
+
         </Container>
     )
 }
