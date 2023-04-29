@@ -39,19 +39,10 @@ export default function CategoryPage() {
     }
   };
 
-  const handleImageClick = async (productId) => {
-    try {
-      const response = await api.get(`${REACT_APP_API_URL}/products/${productId}`);
-      const product = response.data;
-      window.location.href = `/${categories}/${product.id}`;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   function addToCart(product) {
     const newCart = [...cartProducts, product];
     setCartProducts(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
     alert("Produto adicionado no carrinho");
   }
   return (

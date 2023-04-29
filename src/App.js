@@ -13,10 +13,12 @@ import { useState } from "react";
 
 
 function App() {
-
-  const [cartProducts, setCartProducts] = useState([]);
+  const persistentCartProducts = JSON.parse(localStorage.getItem("cart")) ? JSON.parse(localStorage.getItem("cart")) : [];
+  const [cartProducts, setCartProducts] = useState(persistentCartProducts);
+  const [total, setTotal] = useState(0);
+  const [productCount, setProductCount] = useState({});
   return (
-    <Context.Provider value={{ cartProducts, setCartProducts }}>
+    <Context.Provider value={{ cartProducts, setCartProducts, persistentCartProducts, total, setTotal, productCount, setProductCount }}>
       <BrowserRouter>
         <Main>
           <Header />
