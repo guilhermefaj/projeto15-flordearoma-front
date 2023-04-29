@@ -47,6 +47,7 @@ export default function CategoryPage() {
   }
   return (
     <Container>
+      <Order>
       <Products>
         {products.map((product) => (
           <Product key={product.id}>
@@ -57,8 +58,11 @@ export default function CategoryPage() {
               ADD TO CART
             </AddCar>
           </Product>
+          
         ))}
       </Products>
+      </Order>
+ 
     </Container>
   );
 }
@@ -75,6 +79,7 @@ const Container = styled.div`
   gap: 50px;
   position: relative;
   `;
+
 
 
 const Product = styled.div`
@@ -129,4 +134,12 @@ const AddCar = styled.button`
         background-position: -100% center;
         background-color: white;
     }
+`
+
+const Order= styled.button`
+    margin: none;
+    border: none;
+    width: 80vw;
+    background-color: #F3F6F4;
+
 `
