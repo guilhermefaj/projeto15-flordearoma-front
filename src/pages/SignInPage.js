@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import api from "../axios";
 import { ThreeDots } from "react-loader-spinner";
+import Context from "../contexts/Context";
 
 
 export default function SignInPage() {
@@ -12,6 +13,7 @@ export default function SignInPage() {
     const [textButton, setTextButton] = useState("LOGIN");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { persistentCartProducts } = useContext(Context);
 
 
     function signIn(e) {
@@ -30,7 +32,11 @@ export default function SignInPage() {
         request.then(response => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", response.data.userName);
-            navigate("/");
+            if (persistentCartProducts) {
+                navigate("/checkout")
+            } else {
+                navigate("/");
+            }
         });
 
         request.catch(err => {

@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import api from "../../axios";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import Context from "../../contexts/Context";
 
 const REACT_APP_API_URL = "http://localhost:5000"
 
 export default function CategoryPage() {
   const { categories } = useParams();
   const [products, setProducts] = useState([]);
+  const { cartProducts, setCartProducts } = useContext(Context);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,6 +39,12 @@ export default function CategoryPage() {
     }
   };
 
+  function addToCart(product) {
+    const newCart = [...cartProducts, product];
+    setCartProducts(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    alert("Produto adicionado no carrinho");
+  }
   return (
     <Container>
       <Products>
@@ -43,7 +53,7 @@ export default function CategoryPage() {
             <img src={product.URL} alt={product.name} onClick={() => handleImageClick(product.id)} />
             <p>{product.name.toUpperCase()}</p>
             <p>{product.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-            <AddCar>
+            <AddCar onClick={() => addToCart(product)}>
               ADD TO CART
             </AddCar>
           </Product>
