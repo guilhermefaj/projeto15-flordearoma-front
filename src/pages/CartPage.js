@@ -9,8 +9,6 @@ export default function CartPage() {
     const { cartProducts, setCartProducts, total, setTotal, productCount, setProductCount } = useContext(Context);
     const navigate = useNavigate();
 
-
-
     function incrementCount(id) {
         setProductCount({ ...productCount, [id]: (productCount[id] || 0) + 1 });
     }
@@ -30,6 +28,7 @@ export default function CartPage() {
     function removeFromCart(id) {
         const newCart = cartProducts.filter(p => p.id !== id);
         setCartProducts(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart));
         calculateTotal();
     }
 

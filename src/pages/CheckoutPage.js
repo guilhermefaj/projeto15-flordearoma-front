@@ -304,6 +304,10 @@ const CheckoutButton = styled.button`
         background-position: -100% center;
         background-color: white;
     }
+    div{
+        display:flex;
+        justify-content: center;
+    }
 `
 
 const ContactInformation = styled.div`
