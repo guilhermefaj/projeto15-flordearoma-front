@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import Context from "../../contexts/Context";
 
-const REACT_APP_API_URL = "http://localhost:5000"
+
+
 
 export default function CategoryPage() {
   const { categories } = useParams();
@@ -17,7 +18,7 @@ export default function CategoryPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get(`${REACT_APP_API_URL}/products`);
+        const response = await api.get(`${process.env.REACT_APP_API_URL}products`);
         const categoryProducts = response.data.filter(
           product => product.category === categories
         );
@@ -31,7 +32,7 @@ export default function CategoryPage() {
 
   const handleImageClick = async (productId) => {
     try {
-      const response = await api.get(`${REACT_APP_API_URL}/products/${productId}`);
+      const response = await api.get(`${process.env.REACT_APP_API_URL}/products/${productId}`);
       const product = response.data;
       window.location.href = `/${categories}/${product.id}`;
     } catch (err) {
