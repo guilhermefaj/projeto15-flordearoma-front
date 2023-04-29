@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { cartProductsMock } from "../cartProductsMock";
 import styled from "styled-components";
 import { useState } from "react";
 import Recomendations from "../components/Recomendations";
@@ -43,7 +42,7 @@ export default function CartPage() {
             </EmptyCart>
             <Cart cartProducts={cartProducts}>
                 <h1>
-                    CARRINHO
+                    CARRINHO DE COMPRAS
                 </h1><br />
                 <h2>Adicione mais R$30,00 em produtos e ganhe frete grátis!</h2>
                 <CartProductsContainer>
@@ -82,7 +81,7 @@ export default function CartPage() {
                     </Total>
                 </CartProductsContainer>
             </Cart>
-            <Recomendations />
+            <Recommendations />
         </CartContainer>
     )
 }
