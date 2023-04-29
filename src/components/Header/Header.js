@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Container, Alert, TitleContainer, Title, Icons, Navigation, StyledLink } from "./styled";
 import { FiUser, FiSearch, FiShoppingCart } from "react-icons/fi";
 
@@ -12,7 +13,9 @@ export default function Header() {
                 <Icons>
                     <FiUser />
                     <FiSearch />
-                    <FiShoppingCart />
+                    <Link to="/cart">
+                        <FiShoppingCart />
+                    </Link>
                 </Icons>
             </TitleContainer>
             <Navigation>

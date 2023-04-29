@@ -3,9 +3,11 @@ import { cartProductsMock } from "../cartProductsMock";
 import styled from "styled-components";
 import { useState } from "react";
 import Recomendations from "../components/Recomendations";
+import { useContext } from "react";
+import Context from "../contexts/Context";
 
 export default function CartPage() {
-    const [cartProducts, setCartProducts] = useState(cartProductsMock);
+    const { cartProducts, setCartProducts } = useContext(Context);
     const navigate = useNavigate();
     const [total, setTotal] = useState(0);
     const [count, setCount] = useState(1);
@@ -24,6 +26,11 @@ export default function CartPage() {
 
     function checkout() {
         navigate("/checkout");
+    }
+
+    function removeFromCart(id) {
+        const newCart = cartProducts.filter(p => p.id !== id);
+        setCartProducts(newCart);
     }
     return (
         <CartContainer>
@@ -60,7 +67,7 @@ export default function CartPage() {
                                         <div className="count">{count}</div>
                                         <button onClick={incrementCount}>+</button>
                                     </Counter>
-                                    <button className="removeButton">Remover do carrinho</button>
+                                    <button className="removeButton" onClick={() => removeFromCart(product.id)}>Remover do carrinho</button>
                                 </Quantity>
                                 <ProductTotal>
                                     <h4>{`R$ ${Number(product.value) * count}`}</h4>

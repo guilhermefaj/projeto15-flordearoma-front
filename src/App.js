@@ -6,23 +6,32 @@ import SignUpPage from "./pages/SignUpPage";
 import styled from "styled-components";
 import ItemPage from "./pages/ItemPage";
 import CartPage from "./pages/CartPage";
+import CategoryPage from "./pages/Categories/CategoryGeneric";
+import CheckoutPage from "./pages/CheckoutPage";
+import Context from "./contexts/Context";
+import { useState } from "react";
 
 
 function App() {
+
+  const [cartProducts, setCartProducts] = useState([]);
   return (
-    <BrowserRouter>
-      <Main>
-        <Header />
-        <Routes>
-          < Route path="/sign-in" element={<SignInPage />} />
-          < Route path="/sign-up" element={<SignUpPage />} />
-          < Route path="/:categories/:itemId" element={<ItemPage />} />
-          < Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" />
-        </Routes>
-        <Footer />
-      </Main>
-    </BrowserRouter>
+    <Context.Provider value={{ cartProducts, setCartProducts }}>
+      <BrowserRouter>
+        <Main>
+          <Header />
+          <Routes>
+            < Route path="/sign-in" element={<SignInPage />} />
+            < Route path="/sign-up" element={<SignUpPage />} />
+            < Route path="/:categories/:itemId" element={<ItemPage />} />
+            < Route path="/cart" element={<CartPage />} />
+            < Route path="/:categories" element={<CategoryPage />} />
+            < Route path="/checkout" element={<CheckoutPage />} />
+          </Routes>
+          <Footer />
+        </Main>
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 
