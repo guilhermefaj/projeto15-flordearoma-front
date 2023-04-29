@@ -1,21 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { cartProductsMock } from "../cartProductsMock";
 import styled from "styled-components";
-import { useState } from "react";
-import Recomendations from "../components/Recomendations";
+import { useState, useContext, useEffect } from "react";
+import Recommendations from "../components/Recommendations/Recommendations";
+import Context from "../contexts/Context";
+import apiItems from "../services/apiItems";
 
 export default function CartPage() {
-    const [cartProducts, setCartProducts] = useState(cartProductsMock);
+    const { cartProducts, setCartProducts, total, setTotal, productCount, setProductCount } = useContext(Context);
     const navigate = useNavigate();
-    const [total, setTotal] = useState(0);
-    const [count, setCount] = useState(1);
 
-    function incrementCount() {
-        setCount(count + 1);
+
+
+    function incrementCount(id) {
+        setProductCount({ ...productCount, [id]: (productCount[id] || 0) + 1 });
     }
 
-    function decrementCount() {
-        setCount(count - 1)
+    function decrementCount(id) {
+        setProductCount({ ...productCount, [id]: Math.max((productCount[id] || 0) - 1, 0) });
     }
 
     function navigateToHome() {
@@ -25,6 +26,31 @@ export default function CartPage() {
     function checkout() {
         navigate("/checkout");
     }
+
+    function removeFromCart(id) {
+        const newCart = cartProducts.filter(p => p.id !== id);
+        setCartProducts(newCart);
+        calculateTotal();
+    }
+
+    function getProductTotal(product) {
+        return Number(product.value) * (productCount[product.id] ? productCount[product.id] : 1);
+
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        cartProducts.forEach(product => {
+            total += getProductTotal(product);
+        });
+        setTotal(total);
+    }
+
+    useEffect(() => {
+        calculateTotal();
+    }, [productCount]);
+
+
     return (
         <CartContainer>
             <EmptyCart cartProducts={cartProducts}>
@@ -38,44 +64,44 @@ export default function CartPage() {
                 <h1>
                     CARRINHO
                 </h1><br />
-                <h2>Adicione mais R$30,00 em produtos e ganhe frete grátis!</h2>
+                <h2>{total > 199 ? "Você ganhou frete grátis!" : `Adicione mais ${(199 - total).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} em produtos e ganhe frete grátis!`}</h2>
                 <CartProductsContainer>
                     <Titles>
                         <div className="product"><h4>PRODUTO</h4></div>
                         <div className="total"><h4>QUANTIDADE</h4> <h4>TOTAL</h4></div>
                     </Titles>
                     {cartProducts.map((product) => {
+                        const count = productCount[product.id] || 1;
                         return (
-                            <ProductContainer>
+                            <ProductContainer key={product.id}>
                                 <Product>
                                     <img src={product.URL} alt={product.name} />
                                     <div className="productInfo">
                                         <h3>{product.name.toUpperCase()}</h3>
-                                        <h4>{`R$ ${product.value}`}</h4>
+                                        <h4>{product.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>
                                     </div>
                                 </Product>
                                 <Quantity>
                                     <Counter>
-                                        <button onClick={decrementCount}>-</button>
+                                        <button onClick={() => decrementCount(product.id)} disabled={count === 1}>-</button>
                                         <div className="count">{count}</div>
-                                        <button onClick={incrementCount}>+</button>
+                                        <button onClick={() => incrementCount(product.id)} disabled={count === product.stock}>+</button>
                                     </Counter>
-                                    <button className="removeButton">Remover do carrinho</button>
+                                    <button className="removeButton" onClick={() => removeFromCart(product.id)}>Remover do carrinho</button>
                                 </Quantity>
                                 <ProductTotal>
-                                    <h4>{`R$ ${Number(product.value) * count}`}</h4>
+                                    <h4>{(Number(product.value) * count).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>
                                 </ProductTotal>
                             </ProductContainer>
                         )
                     })}
                     <Total>
-                        <h3>{`TOTAL: R$ ${total}`}</h3>
+                        <h3>{`TOTAL: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}</h3>
                         <CheckoutButton onClick={checkout}>FINALIZAR COMPRA</CheckoutButton>
                         <CheckoutButton onClick={navigateToHome}>CONTINUAR COMPRANDO</CheckoutButton>
                     </Total>
                 </CartProductsContainer>
             </Cart>
-            <Recomendations />
         </CartContainer>
     )
 }
