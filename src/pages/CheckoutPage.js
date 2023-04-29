@@ -58,31 +58,31 @@ export default function CheckoutPage() {
             idsCartProducts
         }
 
+        const request = api.post("/sales", obj);
 
-        const putRequest = api.put("/products", putObj);
+        request.then(response => {
+            const putRequest = api.put("/products", putObj);
 
-        putRequest.then(() => {
-            const request = api.post("/sales", obj);
-
-            request.then(response => {
+            putRequest.then(() => {
                 alert("Obrigado por comprar com a Flor de Aroma!");
                 localStorage.removeItem("cart");
                 setCartProducts([]);
                 navigate("/");
-            });
+            })
 
-            request.catch(err => {
+            putRequest.catch(err => {
                 alert(err.response.data);
-                setDisabled(false);
-                setTextButton("CONCLUIR COMPRA");
-                setLoading(false);
-            }
-            );
-        })
+            })
 
-        putRequest.catch(err => {
+        });
+
+        request.catch(err => {
             alert(err.response.data);
-        })
+            setDisabled(false);
+            setTextButton("CONCLUIR COMPRA");
+            setLoading(false);
+        }
+        );
 
     }
     return (
