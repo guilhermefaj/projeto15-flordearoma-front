@@ -42,7 +42,7 @@ export default function CartPage() {
             </EmptyCart>
             <Cart cartProducts={cartProducts}>
                 <h1>
-                    CARRINHO DE COMPRAS
+                    CARRINHO
                 </h1><br />
                 <h2>Adicione mais R$30,00 em produtos e ganhe frete grátis!</h2>
                 <CartProductsContainer>

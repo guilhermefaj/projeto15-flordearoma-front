@@ -29,6 +29,26 @@ export default function CategoryPage() {
     fetchProducts();
   }, [categories]);
 
+  const handleImageClick = async (productId) => {
+    try {
+      const response = await api.get(`${REACT_APP_API_URL}/products/${productId}`);
+      const product = response.data;
+      window.location.href = `/${categories}/${product.id}`;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleImageClick = async (productId) => {
+    try {
+      const response = await api.get(`${REACT_APP_API_URL}/products/${productId}`);
+      const product = response.data;
+      window.location.href = `/${categories}/${product.id}`;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   function addToCart(product) {
     const newCart = [...cartProducts, product];
     setCartProducts(newCart);
@@ -39,8 +59,8 @@ export default function CategoryPage() {
       <Products>
         {products.map((product) => (
           <Product key={product.id}>
-            <img src={product.URL} alt={product.name} />
-            <p>{product.name}</p>
+            <img src={product.URL} alt={product.name} onClick={() => handleImageClick(product.id)} />
+            <p>{product.name.toUpperCase()}</p>
             <p>{product.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
             <AddCar onClick={() => addToCart(product)}>
               ADD TO CART
@@ -55,7 +75,6 @@ export default function CategoryPage() {
 
 const Container = styled.div`
   background-color: #F3F6F4;
-  margin-top: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,14 +87,13 @@ const Container = styled.div`
 
 
 const Product = styled.div`
-
   width: 250px;
   min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   p{
+    text-align: center;
     margin-top: 8px;
   }
 `;
@@ -86,12 +104,10 @@ const Products = styled.div`
   justify-content: center;
   align-items: center;
   gap: 50px;
-
   & > ${Product} {
     width: 300px;
     margin: 0 5px 50px;
   }
-
   img {
     max-width: 100%;
     height: auto;
