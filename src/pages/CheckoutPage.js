@@ -23,7 +23,7 @@ export default function CheckoutPage() {
     const [expirationDate, setExpirationDate] = useState("");
     const [securityCode, setSecurityCode] = useState("");
     const navigate = useNavigate();
-    const idsCartProducts = cartProducts.map(p => p.id);
+
 
     function logOut() {
         localStorage.removeItem("token");
@@ -40,9 +40,17 @@ export default function CheckoutPage() {
         setTextButton("");
         setLoading(true);
 
+        const productsArray = cartProducts.map((product) => {
+            const count = productCount[product.id] || 1;
+            const productObj = {
+                id: product.id,
+                count: count
+            };
+            return productObj;
+        });
+
         const obj = {
-            token,
-            productCount,
+            productsArray,
             total,
             address,
             city,
@@ -55,10 +63,12 @@ export default function CheckoutPage() {
             securityCode
         }
         const putObj = {
-            idsCartProducts
+            productsArray
         }
 
-        const request = api.post("/sales", obj);
+        console.log(obj)
+
+        const request = api.post("/sales", obj, { headers: { Authorization: `Bearer ${token}` } });
 
         request.then(response => {
             const putRequest = api.put("/products", putObj);
