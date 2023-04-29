@@ -5,7 +5,7 @@ import Recommendations from "../components/Recommendations/Recommendations";
 
 
 export default function CartPage() {
-    const [cartProducts, setCartProducts] = useState([]);
+    const [cartProducts, setCartProducts] = useState();
     const navigate = useNavigate();
     const [total, setTotal] = useState(0);
     const [count, setCount] = useState(1);
@@ -36,7 +36,7 @@ export default function CartPage() {
             </EmptyCart>
             <Cart cartProducts={cartProducts}>
                 <h1>
-                    CARRINHO DE COMPRAS
+                    CARRINHO
                 </h1><br />
                 <h2>Adicione mais R$30,00 em produtos e ganhe frete grátis!</h2>
                 <CartProductsContainer>
