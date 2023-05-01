@@ -3,12 +3,15 @@ import styled from "styled-components"
 import apiItems from "../services/apiItems";
 import { useParams } from "react-router-dom";
 import Recommendations from "../components/Recommendations/Recommendations";
+import { useContext } from "react";
+import Context from "../contexts/Context";
 
 export default function ItemPage() {
     const [count, setCount] = useState(1);
     const [product, setProduct] = useState()
     const [recommendations, setRecommendations] = useState()
     const { categories, itemId } = useParams()
+    const { cartProducts, setCartProducts } = useContext(Context);
 
     function incrementCount() { setCount(count + 1) }
     function decrementCount() { setCount(count - 1) }
@@ -36,6 +39,13 @@ export default function ItemPage() {
             })
     }, [categories])
 
+    function addToCart(product) {
+        const newCart = [...cartProducts, product];
+        setCartProducts(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        alert("Produto adicionado no carrinho");
+    }
+
     return (
         <Container>
 
@@ -50,7 +60,7 @@ export default function ItemPage() {
                             <div>{count}</div>
                             <button onClick={incrementCount} disabled={count === product.stock}>+</button>
                         </Quantity>
-                        <CartAdd>Adicionar ao carrinho</CartAdd>
+                        <CartAdd onClick={() => addToCart(product)}>Adicionar ao carrinho</CartAdd>
                         <Description>
                             {product.description.map(item => {
                                 return <p>{item}</p>
@@ -71,11 +81,13 @@ export default function ItemPage() {
                     recommendations.map(item => {
                         return (
                             <Recommendations
+                                key={item.id}
                                 category={item.category}
                                 id={item.id}
                                 URL={item.URL}
                                 name={item.name}
                                 value={item.value}
+                                product={item}
                             />
                         )
                     })

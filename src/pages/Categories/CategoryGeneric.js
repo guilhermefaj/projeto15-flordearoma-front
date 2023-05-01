@@ -18,7 +18,7 @@ export default function CategoryPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get(`${process.env.REACT_APP_API_URL}products`);
+        const response = await api.get(`${process.env.REACT_APP_API_URL}/products`);
         const categoryProducts = response.data.filter(
           product => product.category === categories
         );
@@ -49,21 +49,21 @@ export default function CategoryPage() {
   return (
     <Container>
       <Order>
-      <Products>
-        {products.map((product) => (
-          <Product key={product.id}>
-            <img src={product.URL} alt={product.name} onClick={() => handleImageClick(product.id)} />
-            <p>{product.name.toUpperCase()}</p>
-            <p>{product.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-            <AddCar onClick={() => addToCart(product)}>
-              ADD TO CART
-            </AddCar>
-          </Product>
-          
-        ))}
-      </Products>
+        <Products>
+          {products.map((product) => (
+            <Product key={product.id}>
+              <img src={product.URL} alt={product.name} onClick={() => handleImageClick(product.id)} />
+              <p>{product.name.toUpperCase()}</p>
+              <p>{product.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+              <AddCar onClick={() => addToCart(product)}>
+                ADD TO CART
+              </AddCar>
+            </Product>
+
+          ))}
+        </Products>
       </Order>
- 
+
     </Container>
   );
 }
@@ -137,7 +137,7 @@ const AddCar = styled.button`
     }
 `
 
-const Order= styled.button`
+const Order = styled.button`
     margin: none;
     border: none;
     width: 80vw;
