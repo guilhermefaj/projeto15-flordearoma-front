@@ -8,14 +8,13 @@ export default function ItemPage() {
     const [count, setCount] = useState(1);
     const [product, setProduct] = useState()
     const [recommendations, setRecommendations] = useState()
-    const { categories } = useParams()
-    const { itemId } = useParams()
+    const { categories, itemId } = useParams()
 
     function incrementCount() { setCount(count + 1) }
     function decrementCount() { setCount(count - 1) }
 
     useEffect(() => {
-        apiItems.showItem(itemId)
+        apiItems.showItem(categories, itemId)
             .then(res => {
                 const apiProduct = res.data
                 setProduct(apiProduct)
@@ -61,7 +60,7 @@ export default function ItemPage() {
                     </ItemDescription>
                 </ItemContainer>
             ) : (
-                <p>carregando...</p>
+                ""
             )
             }
             <RecommendationsContainer>
@@ -72,13 +71,15 @@ export default function ItemPage() {
                     recommendations.map(item => {
                         return (
                             <Recommendations
+                                category={item.category}
+                                id={item.id}
                                 URL={item.URL}
                                 name={item.name}
                                 value={item.value}
                             />
                         )
                     })
-                ) : (<div>carregando</div>)}
+                ) : ("")}
 
             </RecommendationsContainer>
         </Container>
