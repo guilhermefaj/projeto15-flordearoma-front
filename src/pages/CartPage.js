@@ -10,7 +10,7 @@ export default function CartPage() {
     const navigate = useNavigate();
 
     function incrementCount(id) {
-        setProductCount({ ...productCount, [id]: (productCount[id] || 0) + 1 });
+        setProductCount(prevCount => ({ ...prevCount, [id]: (prevCount[id] || 0) + 1 }));
     }
 
     function decrementCount(id) {
