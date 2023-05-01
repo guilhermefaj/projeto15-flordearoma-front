@@ -1,7 +1,7 @@
 import axios from "axios";
 
-function showItem(itemId) {
-    const promise = axios.get(`${process.env.REACT_APP_API_URL}/Perfumaria/${itemId}`)
+function showItem(categories, itemId) {
+    const promise = axios.get(`${process.env.REACT_APP_API_URL}/${categories}/${itemId}`)
     return promise
 }
 
