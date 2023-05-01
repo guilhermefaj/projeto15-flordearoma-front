@@ -79,6 +79,7 @@ export default function SignInPage() {
 }
 
 const ContainerLogin = styled.div`
+    width: 100%;
     display: flex;
     flex: 1;
     flex-direction: column;

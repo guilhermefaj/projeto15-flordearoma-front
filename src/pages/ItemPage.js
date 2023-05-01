@@ -10,8 +10,6 @@ export default function ItemPage() {
     const [recommendations, setRecommendations] = useState()
     const { categories, itemId } = useParams()
 
-    console.log(product)
-
     function incrementCount() { setCount(count + 1) }
     function decrementCount() { setCount(count - 1) }
 
