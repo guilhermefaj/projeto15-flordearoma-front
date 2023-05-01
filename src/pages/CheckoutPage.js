@@ -359,6 +359,7 @@ const Summary = styled.div`
 const Payment = styled.div`
 `
 const CheckoutContainer = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
