@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# 🌼 Flor de Aroma - Front-end
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é o front-end do Flor de Aroma, um projeto de um site de cosméticos, saúde e beleza inspirado no site da Boticário. É um projeto fullstack realizado em grupo pelos devs: 
+- Guilherme Junqueira (guilhermefaj) 
+- Larissa Alves (larissaalvesm)
+- José Edivandro (joseedivandro) 
 
-## Available Scripts
+## Tecnologias utilizadas
 
-In the project directory, you can run:
+- React
+- Javascript
+- HTML
+- CSS
+- Axios
+- Styled Components
 
-### `npm start`
+## Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Página inicial separada em categorias de produtos
+- Filtragem de produtos
+- Página de detalhes do produto, com informações sobre preço, descrição e recomendações
+- Adição de produtos ao carrinho de compras
+- Finalização da compra, com formulário para inserção de dados de pagamento
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+A seguir, algumas capturas de tela do projeto:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Sem nome (Post para LinkedIn)](https://user-images.githubusercontent.com/68969592/235453689-b03cea39-dd95-4c02-ada4-f40c7d344b3b.png)
+![image](https://user-images.githubusercontent.com/68969592/235453150-93c0cc25-8645-4400-927a-eb96d45ef62b.png)
 
-### `npm run build`
+## Considerações
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Neste projeto iniciamos a boa prática de trabalhar utilizando as pull requests do Github e obtivemos muito sucesso. Elaboramos bem nossas atividades e responsabilidades por meio do Trello e cada um soube lidar com os conflitos que surgiram ao fazer o merge das branchs. Além disso, mantivemos um bom contato por meio do Discord, trabalhando juntos em alguns momentos e dividindo a comunicação por canais específicos para cada assunto. Por fim, vale ressaltar que cada um dos colaboradores atuou em todas as áreas do projeto: front-end, back-end e banco de dados.
