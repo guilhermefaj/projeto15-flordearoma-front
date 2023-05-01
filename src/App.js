@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import SignInPage from "./pages/SignInPage";
@@ -10,6 +10,7 @@ import CategoryPage from "./pages/Categories/CategoryGeneric";
 import CheckoutPage from "./pages/CheckoutPage";
 import Context from "./contexts/Context";
 import { useState } from "react";
+import HomePage from "./pages/HomePage";
 
 
 function App() {
@@ -17,12 +18,14 @@ function App() {
   const [cartProducts, setCartProducts] = useState(persistentCartProducts);
   const [total, setTotal] = useState(0);
   const [productCount, setProductCount] = useState({});
+
   return (
     <Context.Provider value={{ cartProducts, setCartProducts, persistentCartProducts, total, setTotal, productCount, setProductCount }}>
       <BrowserRouter>
         <Main>
           <Header />
           <Routes>
+            <Route path="/" element={<HomePage />} />
             < Route path="/sign-in" element={<SignInPage />} />
             < Route path="/sign-up" element={<SignUpPage />} />
             < Route path="/:categories/:itemId" element={<ItemPage />} />
