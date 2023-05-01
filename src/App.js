@@ -41,4 +41,8 @@ export default App;
 
 const Main = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 `

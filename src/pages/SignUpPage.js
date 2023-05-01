@@ -75,6 +75,7 @@ export default function SignUpPage() {
 }
 
 const ContainerRegister = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

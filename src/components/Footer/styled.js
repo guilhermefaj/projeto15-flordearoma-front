@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     z-index: 1;
-    position: absolute;
     width: 100%;
     background-color: #4F8164;
     overflow-x: hidden;
