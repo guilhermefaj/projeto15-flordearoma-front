@@ -1,27 +1,30 @@
 import { Link } from "react-router-dom";
 import { Container, Alert, TitleContainer, Title, Icons, Navigation, StyledLink } from "./styled";
 import { FiUser, FiSearch, FiShoppingCart } from "react-icons/fi";
-import { useContext} from "react";
+import { useContext } from "react";
 import Context from "../../contexts/Context";
 import styled from "styled-components";
 
-const CartIcon = styled(FiShoppingCart)`
-  color: ${props => props.hasItems ? "red" : "black"};
-  position: relative;
-`;
 
-const CartCount = styled.span`
-  color: red;
-  font-size: 0.8rem;
-  position: absolute;
-
-  right: -8px;
-  transform: translateY(-50%);
-`;
 
 export default function Header() {
   const { cartProducts } = useContext(Context);
   const cartCount = cartProducts.length;
+
+  const handleUserClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const confirmLogout = window.confirm("Deseja sair da conta?");
+
+      if (confirmLogout) {
+        localStorage.removeItem("token");
+        window.location.href = "/sign-in";
+      }
+    } else {
+      window.location.href = "/sign-in";
+    }
+  };
 
   return (
     <Container>
@@ -31,9 +34,9 @@ export default function Header() {
       <TitleContainer>
         <Title>FlOr dE ArOma</Title>
         <Icons>
-          <Link to="/sign-in">
-            <FiUser />
-          </Link>
+          
+            <FiUser onClick={handleUserClick}/>
+         
           <FiSearch />
           <Link to="/cart">
             <CartIcon hasItems={cartCount > 0} />
@@ -68,3 +71,20 @@ export default function Header() {
     </Container>
   )
 }
+
+
+
+
+const CartIcon = styled(FiShoppingCart)`
+  color: ${props => props.hasItems ? "red" : "black"};
+  position: relative;
+`;
+
+const CartCount = styled.span`
+  color: red;
+  font-size: 0.8rem;
+  position: absolute;
+
+  right: -8px;
+  transform: translateY(-50%);
+`;
