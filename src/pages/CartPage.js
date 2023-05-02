@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
-import Recommendations from "../components/Recommendations/Recommendations";
+import { useContext, useEffect } from "react";
+
 import Context from "../contexts/Context";
-import apiItems from "../services/apiItems";
+
 
 export default function CartPage() {
     const { cartProducts, setCartProducts, total, setTotal, productCount, setProductCount } = useContext(Context);
     const navigate = useNavigate();
 
     function incrementCount(id) {
-        setProductCount(prevCount => ({ ...prevCount, [id]: (prevCount[id] || 0) + 1 }));
+        setProductCount(prevCount => ({ ...prevCount, [id]: (prevCount[id] || 1) + 1 }));
     }
 
     function decrementCount(id) {
@@ -47,7 +47,7 @@ export default function CartPage() {
 
     useEffect(() => {
         calculateTotal();
-    }, [productCount]);
+    }, [productCount, cartProducts]);
 
 
     return (

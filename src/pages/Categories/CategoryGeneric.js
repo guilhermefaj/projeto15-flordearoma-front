@@ -93,6 +93,7 @@ const Product = styled.div`
     text-align: center;
     margin-top: 8px;
   }
+  cursor:pointer;
 `;
 
 const Products = styled.div`
